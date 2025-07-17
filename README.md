@@ -7,7 +7,7 @@ A new Flutter project on forex prices and pricing options on forex
 Run the web app
 
 ```shell
-cd price_app
+cd flutter_app
 flutter run -d chrome
 ```
 
