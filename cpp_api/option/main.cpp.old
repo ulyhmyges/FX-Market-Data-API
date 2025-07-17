@@ -1,0 +1,41 @@
+#include <ql/quantlib.hpp>
+#include <iostream>
+
+int main() {
+    using namespace QuantLib;
+
+    Calendar calendar = TARGET();
+    Date settlementDate(31, March, 2025);
+    Settings::instance().evaluationDate() = settlementDate;
+
+    // Option parameters
+    Option::Type type(Option::Call);
+    Real underlying = 1.08025;
+    Real strike = 1.09005;
+    Spread dividendYield = 0.00;
+    Rate riskFreeRate = 0.042411;
+    Volatility volatility = 0.080457;
+    Date maturity(15, October, 2025);
+    DayCounter dayCounter = Actual365Fixed();
+
+    // Construct the option
+    ext::shared_ptr<Exercise> europeanExercise(new EuropeanExercise(maturity));
+    Handle<Quote> underlyingH(ext::make_shared<SimpleQuote>(underlying));
+    Handle<YieldTermStructure> flatTermStructure(
+        ext::make_shared<FlatForward>(settlementDate, riskFreeRate, dayCounter));
+    Handle<YieldTermStructure> flatDividendTS(
+        ext::make_shared<FlatForward>(settlementDate, dividendYield, dayCounter));
+    Handle<BlackVolTermStructure> flatVolTS(
+        ext::make_shared<BlackConstantVol>(settlementDate, calendar, volatility, dayCounter));
+
+    ext::shared_ptr<StrikedTypePayoff> payoff(new PlainVanillaPayoff(type, strike));
+    ext::shared_ptr<BlackScholesMertonProcess> bsmProcess(
+        new BlackScholesMertonProcess(underlyingH, flatDividendTS, flatTermStructure, flatVolTS));
+
+    EuropeanOption europeanOption(payoff, europeanExercise);
+    europeanOption.setPricingEngine(ext::make_shared<AnalyticEuropeanEngine>(bsmProcess));
+
+    std::cout << "Option price: " << europeanOption.NPV() << std::endl;
+
+    return 0;
+}

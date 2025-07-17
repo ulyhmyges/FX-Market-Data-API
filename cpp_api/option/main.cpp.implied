@@ -1,0 +1,59 @@
+#include <ql/quantlib.hpp>
+#include <iostream>
+
+using namespace QuantLib;
+
+int main() {
+    Calendar calendar = TARGET();
+    Date today(31, March, 2025);
+    Settings::instance().evaluationDate() = today;
+
+    // Market inputs
+    Real spot   = 1.08025;
+    Real strike = 1.09005;
+    Real marketPrice = 0.0176; // Observed premium in USD per EUR
+    Rate rd = 0.041669; // Domestic (USD) risk-free rate
+    Rate rf = 0.021889; // Foreign (EUR) risk-free rate
+    Date maturity(15, October, 2025);
+    DayCounter dc = ActualActual(ActualActual::ISDA);
+
+    // Build curves
+    Handle<Quote> spotFx(ext::make_shared<SimpleQuote>(spot));
+    Handle<YieldTermStructure> domTS(
+        ext::make_shared<FlatForward>(today, rd, dc));
+    Handle<YieldTermStructure> forTS(
+        ext::make_shared<FlatForward>(today, rf, dc));
+
+    // Initial vol guess
+    Volatility volGuess = 0.08;
+    Handle<BlackVolTermStructure> volTS(
+        ext::make_shared<BlackConstantVol>(today, calendar, volGuess, dc));
+
+    // Build Garman-Kohlhagen process
+    auto bsmProcess = ext::make_shared<BlackScholesMertonProcess>(
+        spotFx, forTS, domTS, volTS);
+
+    // Option definition
+    auto payoff = ext::make_shared<PlainVanillaPayoff>(Option::Call, strike);
+    auto exercise = ext::make_shared<EuropeanExercise>(maturity);
+    VanillaOption fxOption(payoff, exercise);
+
+    // Pricing engine
+    fxOption.setPricingEngine(
+        ext::make_shared<AnalyticEuropeanEngine>(bsmProcess));
+
+    // Step 1: Compute implied volatility from market price
+    Volatility impliedVol = fxOption.impliedVolatility(
+        marketPrice, bsmProcess, 1e-6, 100, 0.0001, 2.0);
+
+    std::cout << "Implied Volatility: " << io::volatility(impliedVol) << std::endl;
+
+    // Step 2: Update vol handle with implied vol
+    volTS.linkTo(ext::make_shared<BlackConstantVol>(today, calendar, impliedVol, dc));
+
+    // Step 3: Recalculate price using implied vol
+    Real modelPrice = fxOption.NPV();
+    std::cout << "Model Price with implied vol: " << modelPrice << std::endl;
+
+    return 0;
+}

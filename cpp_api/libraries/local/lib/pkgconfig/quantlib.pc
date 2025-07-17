@@ -1,0 +1,10 @@
+prefix=/Users/ulyh/local
+exec_prefix=${prefix}
+libdir=${exec_prefix}/lib
+includedir=${prefix}/include
+
+Name: QuantLib
+Description: The free/open-source library for quantitative finance.
+Version: 1.38
+Cflags: -I${prefix}/include -isystem /opt/homebrew/include   -std=c++17
+Libs: -L${exec_prefix}/lib -lQuantLib  
