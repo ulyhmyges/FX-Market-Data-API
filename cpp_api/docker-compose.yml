@@ -1,7 +1,14 @@
 # Use postgres/example user/password credentials
 
 services:
-
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: api
+    ports:
+      - 8081:8081
+    
   database:
     image: postgres
     restart: always

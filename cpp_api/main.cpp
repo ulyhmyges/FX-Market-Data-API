@@ -8,10 +8,14 @@
 #include <thread>
 //#include <string>
 
+void set(char*& out, const char* ref){
+    out = new char[strlen(ref) + 1];
+    strcpy(out, ref);
+}
 
 int main() {
     try {
-        auto const address = net::ip::make_address("127.0.0.1");
+        auto const address = net::ip::make_address("0.0.0.0");
         unsigned short port = 8081;
 
         net::io_context ioc{1};
@@ -19,6 +23,10 @@ int main() {
         auto test = std::make_shared<server::Listener>(ioc, tcp::endpoint{address, port});
         
         ioc.run();
+        char* val = NULL;
+        set(val, "A message");
+        printf("%s\n", val);
+        std::cout << "helllo\n" ;
     } catch (const std::exception& e) {
         std::cerr << "Error: " << e.what() << std::endl;
     }

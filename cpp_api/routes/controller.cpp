@@ -26,6 +26,12 @@ namespace routes
             // /option?id=3
             if (path == "/option")
                 return handle_get_option_by_id(req);
+            
+            else if (path == "/health")
+                return handle_get_health(req);
+            
+            else if (path == "/price")
+                return handle_get_price(req);
 
             // /option/all?user_id=1
             else if (path == "/option/all")

@@ -12,7 +12,7 @@
  under the terms of the QuantLib license.  You should have received a
  copy of the license along with this program; if not, please email
  <quantlib-dev@lists.sf.net>. The license is also available online at
- <http://quantlib.org/license.shtml>.
+ <https://www.quantlib.org/license.shtml>.
 
  This program is distributed in the hope that it will be useful, but WITHOUT
  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
@@ -53,7 +53,7 @@ namespace QuantLib {
                  on the latter when the data change.
     */
     class Interpolation : public Extrapolator {
-      protected:
+      public:
         //! abstract base class for interpolation implementations
         class Impl {
           public:
@@ -69,19 +69,20 @@ namespace QuantLib {
             virtual Real derivative(Real) const = 0;
             virtual Real secondDerivative(Real) const = 0;
         };
-        ext::shared_ptr<Impl> impl_;
-      public:
         //! basic template implementation
-        template <class I1, class I2>
-        class templateImpl : public Impl {
+        template <class I1, class I2, class Base=Impl>
+        class templateImpl : public Base {
           public:
+            templateImpl(const I1& xBegin, const I1& xEnd, const I2& yBegin)
+            : templateImpl(xBegin, xEnd, yBegin, 2) {}
+            template <class... Args>
             templateImpl(const I1& xBegin, const I1& xEnd, const I2& yBegin,
-                         const int requiredPoints = 2)
-            : xBegin_(xBegin), xEnd_(xEnd), yBegin_(yBegin) {
-                QL_REQUIRE(static_cast<int>(xEnd_-xBegin_) >= requiredPoints,
+                         const int requiredPoints, Args&&... args)
+            : Base(std::forward<Args>(args)...), xBegin_(xBegin), xEnd_(xEnd), yBegin_(yBegin) {
+                QL_REQUIRE(static_cast<std::ptrdiff_t>(xEnd_-xBegin_) >= requiredPoints,
                            "not enough points to interpolate: at least " <<
                            requiredPoints <<
-                           " required, " << static_cast<int>(xEnd_-xBegin_)<< " provided");
+                           " required, " << static_cast<std::ptrdiff_t>(xEnd_-xBegin_)<< " provided");
             }
             Real xMin() const override { return *xBegin_; }
             Real xMax() const override { return *(xEnd_ - 1); }
@@ -116,7 +117,6 @@ namespace QuantLib {
         };
 
         Interpolation() = default;
-        ~Interpolation() override = default;
         bool empty() const { return !impl_; }
         Real operator()(Real x, bool allowExtrapolation = false) const {
             checkRange(x,allowExtrapolation);
@@ -147,6 +147,8 @@ namespace QuantLib {
             impl_->update();
         }
       protected:
+        ext::shared_ptr<Impl> impl_;
+
         void checkRange(Real x, bool extrapolate) const {
             QL_REQUIRE(extrapolate || allowsExtrapolation() ||
                        impl_->isInRange(x),
@@ -154,6 +156,7 @@ namespace QuantLib {
                        << impl_->xMin() << ", " << impl_->xMax()
                        << "]: extrapolation at " << x << " not allowed");
         }
+        friend class MixedLinearCubicInterpolation;
     };
 
 }

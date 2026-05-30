@@ -12,7 +12,7 @@
  under the terms of the QuantLib license.  You should have received a
  copy of the license along with this program; if not, please email
  <quantlib-dev@lists.sf.net>. The license is also available online at
- <http://quantlib.org/license.shtml>.
+ <https://www.quantlib.org/license.shtml>.
 
  This program is distributed in the hope that it will be useful, but WITHOUT
  ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
@@ -24,8 +24,9 @@
 */
 
 #ifndef quantlib_defines_hpp
-#define QL_HAVE_CONFIG_H
 #define quantlib_defines_hpp
+
+/* install-hook */
 
 #ifdef _MSC_VER
 /* Microsoft-specific, but needs to be defined before
@@ -87,7 +88,7 @@
     #define QL_DEBUG
 #endif
 
-#if   defined(QL_HAVE_CONFIG_H)    // Dynamically created by configure
+#if   defined(HAVE_CONFIG_H)    // Dynamically created by configure
    #include <ql/config.hpp>
 /* Use BOOST_MSVC instead of _MSC_VER since some other vendors (Metrowerks,
    for example) also #define _MSC_VER

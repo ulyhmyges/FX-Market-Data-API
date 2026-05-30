@@ -5,11 +5,13 @@ start: build up api
 restart: down rebuild up api
 
 up:
-	@echo service postgreSQL up
-	@docker compose up --build -d
+	@echo services postgreSQL and RESTApi BUILD and UP
+	@docker builder prune -af
+	@docker compose build --no-cache
+	@docker compose up -d
 
 down:
-	@echo service postgreSQL down
+	@echo services down
 	@docker compose down
 
 build:

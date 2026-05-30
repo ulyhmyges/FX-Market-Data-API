@@ -21,6 +21,7 @@ namespace routes
     http::response<http::string_body> handle_get_option_by_user_id(http::request<http::string_body> const &req);
     http::response<http::string_body> handle_options(http::request<http::string_body> const &req);
     http::response<http::string_body> handle_delete_option_by_id(http::request<http::string_body> const &req);
+    http::response<http::string_body> handle_get_health(http::request<http::string_body> const &req);
 
     // Mock function to store user (you should replace this)
     bool store_user(const std::string &username, const std::string &password);

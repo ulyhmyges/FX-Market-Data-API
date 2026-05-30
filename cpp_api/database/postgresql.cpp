@@ -19,8 +19,9 @@ namespace database
         conn.prepare("check_user", "SELECT password FROM users WHERE pseudo = $1");
 
         pqxx::work txn(conn);
-        // pqxx::result r = txn.exec_prepared("check_user", pseudo);
-        pqxx::result r = txn.exec(pqxx::prepped("check_user"), pqxx::params(pseudo));
+        
+        //pqxx::result r = txn.exec(pqxx::prepped("check_user"), pqxx::params(pseudo));
+        pqxx::result r = txn.exec_prepared("check_user", pseudo);
 
         if (r.empty())
         {
@@ -61,8 +62,9 @@ namespace database
             conn.prepare("insert_user", "INSERT INTO users (pseudo, password) VALUES ($1, $2)");
 
             pqxx::work txn(conn);
-            // pqxx::result r = txn.exec_prepared("check_user", pseudo);
-            pqxx::result r = txn.exec(pqxx::prepped("check_user"), pqxx::params(pseudo));
+            
+            pqxx::result r = txn.exec_prepared("check_user", pseudo);
+            //pqxx::result r = txn.exec(pqxx::prepped("check_user"), pqxx::params(pseudo));
             if (!r.empty())
                 return false;
 
@@ -77,8 +79,8 @@ namespace database
             if (bcrypt_hashpw(password.c_str(), salt, hashedPassword) == 0)
                 std::cout << "Hashed password: " << hashedPassword << std::endl;
 
-            // txn.exec_prepared("insert_user", pseudo, hashedPassword);
-            txn.exec(pqxx::prepped("insert_user"), pqxx::params(pseudo, hashedPassword));
+            txn.exec_prepared("insert_user", pseudo, hashedPassword);
+            //txn.exec(pqxx::prepped("insert_user"), pqxx::params(pseudo, hashedPassword));
 
             txn.commit();
             return true;
@@ -98,8 +100,9 @@ namespace database
         conn.prepare("check_user", "SELECT id FROM users WHERE pseudo = $1");
 
         pqxx::work txn(conn);
-        // pqxx::result r = txn.exec_prepared("check_user", pseudo);
-        pqxx::result r = txn.exec(pqxx::prepped("check_user"), pqxx::params(pseudo));
+        
+        pqxx::result r = txn.exec_prepared("check_user", pseudo);
+        //pqxx::result r = txn.exec(pqxx::prepped("check_user"), pqxx::params(pseudo));
 
         if (r.empty())
         {
@@ -120,7 +123,9 @@ namespace database
             conn.prepare("user_id", "SELECT id FROM users WHERE pseudo = $1");
 
             pqxx::work txn(conn);
-            pqxx::result r = txn.exec(pqxx::prepped("user_id"), pqxx::params(opt.client));
+            
+            //pqxx::result r = txn.exec(pqxx::prepped("user_id"), pqxx::params(opt.client));
+            pqxx::result r = txn.exec_prepared("user_id", opt.client);
             if (r.empty())
             {
             std:
@@ -133,12 +138,15 @@ namespace database
             if (opt.id > 0)
             {
                 conn.prepare("update_option", "update options SET type = $1, price = $2, strike = $3, rate_domestic = $4, rate_foreign = $5, volatility = $6, maturity = $7, day_counter = $8, spot = $9 WHERE id = $10;");
-                pqxx::result res_update = txn.exec(pqxx::prepped("update_option"), pqxx::params(opt.type, opt.price, opt.strike, opt.rateDomestic, opt.rateForeign, opt.volatility, opt.maturity, opt.dayCounter, opt.spot, opt.id));
+                // pqxx::result res_update = txn.exec(pqxx::prepped("update_option"), pqxx::params(opt.type, opt.price, opt.strike, opt.rateDomestic, opt.rateForeign, opt.volatility, opt.maturity, opt.dayCounter, opt.spot, opt.id));
+                pqxx::result res_update = txn.exec_prepared("update_option", opt.type, opt.price, opt.strike, opt.rateDomestic, opt.rateForeign, opt.volatility, opt.maturity, opt.dayCounter, opt.spot, opt.id);   
             }
             else
             {
                 conn.prepare("insert_option", "INSERT INTO options (type, spot, strike, rate_domestic, rate_foreign, volatility, maturity, day_counter, price, user_id) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10)");
-                txn.exec(pqxx::prepped("insert_option"), pqxx::params(opt.type, opt.spot, opt.strike, opt.rateDomestic, opt.rateForeign, opt.volatility, opt.maturity, opt.dayCounter, opt.price, user_id));
+                
+                // txn.exec(pqxx::prepped("insert_option"), pqxx::params(opt.type, opt.spot, opt.strike, opt.rateDomestic, opt.rateForeign, opt.volatility, opt.maturity, opt.dayCounter, opt.price, user_id));
+                txn.exec_prepared("insert_option", opt.type, opt.spot, opt.strike, opt.rateDomestic, opt.rateForeign, opt.volatility, opt.maturity, opt.dayCounter, opt.price, user_id);
             }
 
             txn.commit();
@@ -160,7 +168,9 @@ namespace database
             conn.prepare("options", "SELECT * FROM options WHERE user_id = $1");
 
             pqxx::work txn(conn);
-            pqxx::result r = txn.exec(pqxx::prepped("options"), pqxx::params(user_id));
+            
+            //pqxx::result r = txn.exec(pqxx::prepped("options"), pqxx::params(user_id));
+            pqxx::result r = txn.exec_prepared("options", user_id);
             if (r.empty())
             {
                 std::cerr << "No option found for user_id = " << user_id << "\n";
@@ -206,10 +216,13 @@ namespace database
             conn.prepare("get_option", "SELECT * FROM options WHERE id = $1");
 
             pqxx::work txn(conn);
-            txn.exec(pqxx::prepped("delete_option"), pqxx::params(id));
-              txn.commit();
-            pqxx::result r = txn.exec(pqxx::prepped("get_option"), pqxx::params(id));
+            
+            // txn.exec(pqxx::prepped("delete_option"), pqxx::params(id));
+            txn.exec_prepared("delete_option", id);
+            txn.commit();
 
+            // pqxx::result r = txn.exec(pqxx::prepped("get_option"), pqxx::params(id));
+            pqxx::result r = txn.exec_prepared("get_option", id);
             if (!r.empty())
             {
                 std::cerr << "Option was not deleted with id = " << id << "\n";

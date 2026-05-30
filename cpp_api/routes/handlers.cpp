@@ -376,6 +376,32 @@ namespace routes
         }
     }
 
+    // method: GET
+    // route: /health
+    http::response<http::string_body> handle_get_health(http::request<http::string_body> const &req){
+        http::response<http::string_body> res;
+        add_cors_headers(res); // add CORS hearders
+        try
+        {
+            nlohmann::json json = {{"health", "ok"}};
+            res.result(http::status::ok);
+       
+            res.set(http::field::server, "Beast");
+            res.set(http::field::content_type, "application/json");
+            res.keep_alive(req.keep_alive());
+            res.body() = json.dump();
+            res.prepare_payload();
+            return res;
+        }
+        catch (std::exception const &e)
+        {
+            res.result(http::status::bad_request);
+            res.body() = R"({"error": "bad request"})";
+            res.set(http::field::content_type, "application/json");
+            return res;
+        }
+    }
+
 
     // method: DELETE
     // route: /option/all?user_id=1
