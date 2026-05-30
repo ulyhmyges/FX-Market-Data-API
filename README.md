@@ -1,4 +1,4 @@
-# pricer_app
+# FX-Market-Data-API
 
 A new Flutter project on forex prices and pricing options on forex
 
