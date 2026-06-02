@@ -6,13 +6,16 @@ import 'package:pricer_app/services/option_service.dart';
 class OptionWidget extends StatelessWidget {
   final Option option;
 
+  static const apiHOST = String.fromEnvironment('API_HOST', defaultValue: 'localhost');
+  static const apiPORT = String.fromEnvironment('API_PORT', defaultValue: '8080');
+
   const OptionWidget({super.key, required this.option});
 
   Future<OptionState> _saveOption(BuildContext context) async {
     try {
       if (option.client == 'error')
         Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
-      final OptionState state = await OptionService(baseURL: 'http://localhost:8081/option').updateOrStoreOption(option);
+      final OptionState state = await OptionService(baseURL: 'http://$apiHOST:$apiPORT/option').updateOrStoreOption(option);
       return state;
     } catch (e) {
       return OptionState.Unstored;
@@ -31,8 +34,9 @@ class OptionWidget extends StatelessWidget {
           ElevatedButton(
             style: ButtonStyle(
               backgroundColor: WidgetStateProperty.resolveWith((states) {
-                if (states.contains(WidgetState.hovered))
+                if (states.contains(WidgetState.hovered)) {
                   return Colors.orange.shade200;
+                }
               }),
               // padding: WidgetStateProperty.all(EdgeInsetsGeometry.all(5)),
             ),
@@ -45,8 +49,9 @@ class OptionWidget extends StatelessWidget {
           ElevatedButton(
             style: ButtonStyle(
               backgroundColor: WidgetStateProperty.resolveWith((states) {
-                if (states.contains(WidgetState.hovered))
+                if (states.contains(WidgetState.hovered)) {
                   return Colors.orange.shade200;
+                }
               }),
               // padding: WidgetStateProperty.all(EdgeInsetsGeometry.all(5)),
             ),
@@ -80,7 +85,7 @@ class OptionWidget extends StatelessWidget {
               children: [
                 Text("type", style: TextStyle(fontSize: 17)),
                 Text(
-                  "${option.type.toString()}",
+                  option.type.toString(),
                   style: TextStyle(fontSize: 17),
                 ),
               ],
@@ -117,7 +122,7 @@ class OptionWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text("maturity", style: TextStyle(fontSize: 17)),
-                Text("${option.maturity}", style: TextStyle(fontSize: 17)),
+                Text(option.maturity, style: TextStyle(fontSize: 17)),
               ],
             ),
             Row(
@@ -129,7 +134,7 @@ class OptionWidget extends StatelessWidget {
             ),
             FutureBuilder(
               future: OptionService(
-                baseURL: "http://localhost:8081/option",
+                baseURL: "http://$apiHOST:$apiPORT/option",
               ).getPrice(option),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {

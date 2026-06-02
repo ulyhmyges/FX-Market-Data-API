@@ -1,6 +1,4 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:pricer_app/models/Session.dart';
 import 'package:pricer_app/models/option.dart';
 import 'package:pricer_app/services/option_service.dart';
@@ -18,9 +16,11 @@ class DashboardWidget extends StatefulWidget {
 }
 
 class DashboardWidgetState extends State<DashboardWidget> {
-  final _userService = UserService(baseURL: 'http://localhost:8081/auth');
+  static const apiHOST = String.fromEnvironment('API_HOST', defaultValue: 'localhost');
+  static const apiPORT = String.fromEnvironment('API_PORT', defaultValue: '8080');
+  final UserService _userService = UserService(baseURL: 'http://$apiHOST:$apiPORT/auth');
   final _storageService = StorageService.getInstance();
-  final _optionService = OptionService(baseURL: 'http://localhost:8081/option');
+  final _optionService = OptionService(baseURL: 'http://$apiHOST:$apiPORT/option');
   Session? _session;
 
   @override
@@ -69,8 +69,9 @@ class DashboardWidgetState extends State<DashboardWidget> {
           ElevatedButton(
             style: ButtonStyle(
               backgroundColor: WidgetStateProperty.resolveWith((states) {
-                if (states.contains(WidgetState.hovered))
+                if (states.contains(WidgetState.hovered)) {
                   return Colors.orange.shade200;
+                }
               }),
               // padding: WidgetStateProperty.all(EdgeInsetsGeometry.all(5)),
             ),
@@ -98,8 +99,9 @@ class DashboardWidgetState extends State<DashboardWidget> {
               child: FutureBuilder<Iterable<Option>>(
                   future: _getOptions(),
                   builder: (context, snapshot) {
-                    if (snapshot.connectionState == ConnectionState.waiting)
+                    if (snapshot.connectionState == ConnectionState.waiting) {
                       return Center(child: CircularProgressIndicator());
+                    }
                     if (snapshot.hasError){
                       return _redirecting();
                     }

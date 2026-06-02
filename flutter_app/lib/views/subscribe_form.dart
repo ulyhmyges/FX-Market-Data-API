@@ -1,8 +1,6 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pricer_app/models/user.dart';
 import 'package:pricer_app/services/user_service.dart';
-import 'package:pricer_app/views/home.dart';
 
 class SubscribeFormWidget extends StatefulWidget {
   const SubscribeFormWidget({super.key});
@@ -17,7 +15,11 @@ class SubscribeFormWidgetState extends State<SubscribeFormWidget> {
   final _formKey = GlobalKey<FormState>();
   final _pseudoC = TextEditingController();
   final _passwordC = TextEditingController();
-  final _userService = UserService(baseURL: 'http://localhost:8081/auth');
+
+  static const apiHOST = String.fromEnvironment('API_HOST', defaultValue: 'localhost');
+  static const apiPORT = String.fromEnvironment('API_PORT', defaultValue: '8080');
+
+  final _userService = UserService(baseURL: 'http://$apiHOST:$apiPORT/auth');
 
   String? _validateRequiredString(String? value) {
     if (value == null || value.isEmpty) return 'The field is mandatory';
@@ -54,8 +56,9 @@ class SubscribeFormWidgetState extends State<SubscribeFormWidget> {
           ElevatedButton(
             style: ButtonStyle(
               backgroundColor: WidgetStateProperty.resolveWith((states) {
-                if (states.contains(WidgetState.hovered))
+                if (states.contains(WidgetState.hovered)) {
                   return Colors.orange.shade200;
+                }
               }),
               // padding: WidgetStateProperty.all(EdgeInsetsGeometry.all(5)),
             ),

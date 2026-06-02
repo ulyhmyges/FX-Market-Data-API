@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pricer_app/views/login_form.dart';
 import 'package:pricer_app/views/subscribe_form.dart';
@@ -21,8 +20,9 @@ class Welcome extends StatelessWidget {
           ElevatedButton(
             style: ButtonStyle(
               backgroundColor: WidgetStateProperty.resolveWith((states){
-                if (states.contains(WidgetState.hovered))
+                if (states.contains(WidgetState.hovered)) {
                   return Colors.orange.shade200;
+                }
               }),
                // padding: WidgetStateProperty.all(EdgeInsetsGeometry.all(5)),
 
@@ -42,8 +42,9 @@ class Welcome extends StatelessWidget {
           ElevatedButton(
             style: ButtonStyle(
               backgroundColor: WidgetStateProperty.resolveWith((states){
-                if (states.contains(WidgetState.hovered))
+                if (states.contains(WidgetState.hovered)) {
                   return Colors.orange.shade200;
+                }
               })
             ),
             onPressed: () {

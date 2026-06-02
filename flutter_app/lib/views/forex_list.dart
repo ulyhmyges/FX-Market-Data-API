@@ -28,8 +28,9 @@ class _ForexListState extends State<ForexList> {
           ElevatedButton(
             style: ButtonStyle(
               backgroundColor: WidgetStateProperty.resolveWith((states) {
-                if (states.contains(WidgetState.hovered))
+                if (states.contains(WidgetState.hovered)) {
                   return Colors.orange.shade200;
+                }
               }),
 
               // padding: WidgetStateProperty.all(EdgeInsetsGeometry.all(5)),

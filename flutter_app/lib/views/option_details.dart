@@ -7,12 +7,15 @@ import 'package:pricer_app/views/option_pricer_form.dart';
 class OptionDetailsWidget extends StatelessWidget {
   final Option option;
 
+  static const apiHOST = String.fromEnvironment('API_HOST', defaultValue: 'localhost');
+  static const apiPORT = String.fromEnvironment('API_PORT', defaultValue: '8080');
+
   const OptionDetailsWidget({super.key, required this.option});
 
   Future<String> _deleteOption(int id) async {
-    try {
+    try { 
       final String message = await OptionService(
-        baseURL: 'http://localhost:8081/option',
+        baseURL: 'http://$apiHOST:$apiPORT/option',
       ).deleteOption(id);
       return message;
     } catch (e) {
@@ -31,8 +34,9 @@ class OptionDetailsWidget extends StatelessWidget {
           ElevatedButton(
             style: ButtonStyle(
               backgroundColor: WidgetStateProperty.resolveWith((states) {
-                if (states.contains(WidgetState.hovered))
+                if (states.contains(WidgetState.hovered)) {
                   return Colors.orange.shade200;
+                }
               }),
               // padding: WidgetStateProperty.all(EdgeInsetsGeometry.all(5)),
             ),
@@ -45,8 +49,9 @@ class OptionDetailsWidget extends StatelessWidget {
           ElevatedButton(
             style: ButtonStyle(
               backgroundColor: WidgetStateProperty.resolveWith((states) {
-                if (states.contains(WidgetState.hovered))
+                if (states.contains(WidgetState.hovered)) {
                   return Colors.orange.shade200;
+                }
               }),
               // padding: WidgetStateProperty.all(EdgeInsetsGeometry.all(5)),
             ),
@@ -80,7 +85,7 @@ class OptionDetailsWidget extends StatelessWidget {
               children: [
                 Text("type", style: TextStyle(fontSize: 17)),
                 Text(
-                  "${option.type.toString()}",
+                  option.type.toString(),
                   style: TextStyle(fontSize: 17),
                 ),
               ],
@@ -117,7 +122,7 @@ class OptionDetailsWidget extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text("maturity", style: TextStyle(fontSize: 17)),
-                Text("${option.maturity}", style: TextStyle(fontSize: 17)),
+                Text(option.maturity, style: TextStyle(fontSize: 17)),
               ],
             ),
             Row(
@@ -152,7 +157,7 @@ class OptionDetailsWidget extends StatelessWidget {
                 ElevatedButton(
                   onPressed: () async {
                     final String msg = await _deleteOption(option.id ?? 0);
-                    if (!msg.isEmpty) {
+                    if (msg.isNotEmpty) {
                       showDialog<void>(
                         context: context,
                         builder: (BuildContext context) {

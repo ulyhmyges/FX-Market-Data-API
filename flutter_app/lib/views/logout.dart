@@ -1,7 +1,5 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pricer_app/services/storage_service.dart';
-import 'package:pricer_app/views/welcome.dart';
 
 class LogoutWidget extends StatelessWidget {
   final StorageService _storageService = StorageService.getInstance();

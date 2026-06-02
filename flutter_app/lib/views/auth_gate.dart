@@ -2,15 +2,16 @@ import 'package:flutter/cupertino.dart';
 import 'package:pricer_app/models/Session.dart';
 import 'package:pricer_app/services/storage_service.dart';
 import 'package:pricer_app/services/user_service.dart';
-import 'package:pricer_app/views/dashboard.dart';
 import 'package:pricer_app/views/home.dart';
-import 'package:pricer_app/views/login_form.dart';
 import 'package:pricer_app/views/welcome.dart';
 
 class AuthGateWidget extends StatelessWidget {
   AuthGateWidget({super.key});
   final StorageService _storageService = StorageService.getInstance();
-  final UserService _userService = UserService(baseURL: 'http://localhost:8081/auth');
+  
+  static const apiHOST = String.fromEnvironment('API_HOST', defaultValue: 'localhost');
+  static const apiPORT = String.fromEnvironment('API_PORT', defaultValue: '8080');
+  final UserService _userService = UserService(baseURL: 'http://$apiHOST:$apiPORT/auth');
 
   Future<Session> _me() async {
     final String? token = await _storageService.getToken();
@@ -25,8 +26,9 @@ class AuthGateWidget extends StatelessWidget {
         builder: (context, snapshot){
           if (snapshot.hasData) {
             final Session session = snapshot.data!;
-            if (session.token_expired)
+            if (session.token_expired) {
               return const Welcome(title: 'Option Pricer');
+            }
             return const HomeWidget(title: 'Home');
           }
           return const Welcome(title: 'Option Pricer');

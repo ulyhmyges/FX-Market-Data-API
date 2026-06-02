@@ -19,8 +19,12 @@ class OptionPricerForm extends StatefulWidget {
 
 class OptionPricerFormState extends State<OptionPricerForm> {
   final StorageService _storageService = StorageService.getInstance();
+
+  static const apiHOST = String.fromEnvironment('API_HOST', defaultValue: 'localhost');
+  static const apiPORT = String.fromEnvironment('API_PORT', defaultValue: '8080');
+
   final UserService _userService = UserService(
-    baseURL: 'http://localhost:8081/auth',
+    baseURL: 'http://$apiHOST:$apiPORT/auth',
   );
 
   late GlobalKey<FormState> _formKey = GlobalKey<FormState>();
@@ -154,8 +158,9 @@ class OptionPricerFormState extends State<OptionPricerForm> {
           ElevatedButton(
             style: ButtonStyle(
               backgroundColor: WidgetStateProperty.resolveWith((states) {
-                if (states.contains(WidgetState.hovered))
+                if (states.contains(WidgetState.hovered)) {
                   return Colors.orange.shade200;
+                }
               }),
               // padding: WidgetStateProperty.all(EdgeInsetsGeometry.all(5)),
             ),
@@ -168,8 +173,9 @@ class OptionPricerFormState extends State<OptionPricerForm> {
           ElevatedButton(
             style: ButtonStyle(
               backgroundColor: WidgetStateProperty.resolveWith((states) {
-                if (states.contains(WidgetState.hovered))
+                if (states.contains(WidgetState.hovered)) {
                   return Colors.orange.shade200;
+                }
               }),
 
               // padding: WidgetStateProperty.all(EdgeInsetsGeometry.all(5)),
