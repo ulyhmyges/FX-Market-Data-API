@@ -5,7 +5,7 @@
 
 namespace database
 {
-
+    std::string getDB_URL();
     bool store_user(const std::string &pseudo, const std::string &password);
     bool retrieve_user(const std::string &pseudo, const std::string &password);
     unsigned int check_user(const std::string &pseudo);

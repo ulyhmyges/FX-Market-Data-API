@@ -1,10 +1,8 @@
-import 'package:flutter/cupertino.dart';
+
 import 'package:flutter/material.dart';
-import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:pricer_app/models/user.dart';
 import 'package:pricer_app/services/storage_service.dart';
 import 'package:pricer_app/services/user_service.dart';
-import 'package:pricer_app/views/dashboard.dart';
 import 'package:pricer_app/views/home.dart';
 import 'package:pricer_app/views/subscribe_form.dart';
 
@@ -21,7 +19,11 @@ class LoginFormWidgetState extends State<LoginFormWidget> {
   final _formKey = GlobalKey<FormState>();
   final _pseudoC = TextEditingController();
   final _passwordC = TextEditingController();
-  final _userService = UserService(baseURL: 'http://localhost:8081/auth');
+
+  static const apiHOST = String.fromEnvironment('API_HOST', defaultValue: 'localhost');
+  static const apiPORT = String.fromEnvironment('API_PORT', defaultValue: '8080');
+
+  final _userService = UserService(baseURL: "http://$apiHOST:$apiPORT/auth");
   final _storageService = StorageService.getInstance();
 
   String? _validateRequiredString(String? value) {
@@ -66,8 +68,9 @@ class LoginFormWidgetState extends State<LoginFormWidget> {
           ElevatedButton(
             style: ButtonStyle(
                 backgroundColor: WidgetStateProperty.resolveWith((states){
-                  if (states.contains(WidgetState.hovered))
+                  if (states.contains(WidgetState.hovered)) {
                     return Colors.orange.shade200;
+                  }
                 })
             ),
             onPressed: () {

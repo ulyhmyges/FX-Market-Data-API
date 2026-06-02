@@ -1,0 +1,54 @@
+name: fxapi
+services:
+  app:
+    container_name: app
+    build:
+      context: ./flutter_app
+      dockerfile: Dockerfile
+      no_cache: true
+      pull: true
+    ports:
+      - 88:80
+    restart: unless-stopped
+    depends_on:
+      - api
+  api:
+    build:
+      context: ./cpp_api
+      dockerfile: Dockerfile
+      no_cache: true
+      pull: false
+    container_name: api
+    restart: unless-stopped
+    ports:
+      - 8081:8081
+    env_file:
+      - ./cpp_api/.env
+    depends_on:
+      - db
+    
+  db:
+    image: postgres:17
+    restart: unless-stopped
+    container_name: db
+    # set shared memory limit when using docker compose
+    shm_size: 128mb
+    environment:
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: admin
+      POSTGRES_DB: restapi
+    ports:
+      - 5432:5432
+    volumes:
+      - datavolume:/var/lib/postgresql/data
+      - ./cpp_api/database/script.sql:/docker-entrypoint-initdb.d/script.sql
+
+  adminer:
+    image: adminer:5
+    restart: unless-stopped
+    container_name: gui
+    ports:
+      - 8083:8080
+
+volumes:
+  datavolume:

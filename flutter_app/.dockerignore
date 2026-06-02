@@ -3,3 +3,4 @@ build
 .dart_tool
 .*
 pricer_app.iml
+.git

@@ -11,10 +11,18 @@ extern "C"
 
 namespace database
 {
+    std::string getDB_URL(){
+        const char* host = std::getenv("DB_HOST");
+        if (!host) {
+            throw std::runtime_error("DB_HOST environment variable is not set");
+        }
+        return "dbname=restapi user=admin password=admin host=" + std::string(host) + " port=5432";
+    }
+
     bool retrieve_user(const std::string &pseudo, const std::string &password)
     {
         // Connect to PostgreSQL
-        pqxx::connection conn("dbname=restapi user=admin password=admin host=localhost port=5432");
+        pqxx::connection conn(getDB_URL());
 
         conn.prepare("check_user", "SELECT password FROM users WHERE pseudo = $1");
 
@@ -56,7 +64,7 @@ namespace database
         try
         {
             // Connect to PostgreSQL
-            pqxx::connection conn("dbname=restapi user=admin password=admin host=localhost port=5432");
+            pqxx::connection conn(getDB_URL());
 
             conn.prepare("check_user", "SELECT 1 FROM users WHERE pseudo = $1");
             conn.prepare("insert_user", "INSERT INTO users (pseudo, password) VALUES ($1, $2)");
@@ -95,7 +103,7 @@ namespace database
     unsigned int check_user(const std::string &pseudo)
     {
         // Connect to PostgreSQL
-        pqxx::connection conn("dbname=restapi user=admin password=admin host=localhost port=5432");
+        pqxx::connection conn(getDB_URL());
 
         conn.prepare("check_user", "SELECT id FROM users WHERE pseudo = $1");
 
@@ -117,9 +125,8 @@ namespace database
     {
         try
         {
-
             // Connect to PostgreSQL
-            pqxx::connection conn("dbname=restapi user=admin password=admin host=localhost port=5432");
+            pqxx::connection conn(getDB_URL());
             conn.prepare("user_id", "SELECT id FROM users WHERE pseudo = $1");
 
             pqxx::work txn(conn);
@@ -164,7 +171,7 @@ namespace database
         try
         {
             // Connect to PostgreSQL
-            pqxx::connection conn("dbname=restapi user=admin password=admin host=localhost port=5432");
+            pqxx::connection conn(getDB_URL());
             conn.prepare("options", "SELECT * FROM options WHERE user_id = $1");
 
             pqxx::work txn(conn);
@@ -211,7 +218,7 @@ namespace database
         try
         {
             // Connect to PostgreSQL
-            pqxx::connection conn("dbname=restapi user=admin password=admin host=localhost port=5432");
+            pqxx::connection conn(getDB_URL());
             conn.prepare("delete_option", "DELETE FROM options WHERE id = $1");
             conn.prepare("get_option", "SELECT * FROM options WHERE id = $1");
 
