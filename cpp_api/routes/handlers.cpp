@@ -19,7 +19,7 @@ namespace routes
     // route: *
     http::response<http::string_body> handle_options(http::request<http::string_body> const &req)
     {
-        http::response<http::string_body> res{http::status::no_content, req.version()};
+        http::response<http::string_body> res{http::status::ok, req.version()};
         add_cors_headers(res);
         res.set(http::field::content_length, "0");
         res.keep_alive(req.keep_alive());

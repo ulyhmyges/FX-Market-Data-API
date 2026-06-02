@@ -26,7 +26,7 @@ int main() {
         char* val = NULL;
         set(val, "A message");
         printf("%s\n", val);
-        std::cout << "helllo\n" ;
+        std::cout << "hello\n" ;
     } catch (const std::exception& e) {
         std::cerr << "Error: " << e.what() << std::endl;
     }

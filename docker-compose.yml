@@ -9,7 +9,7 @@ services:
       pull: true
     ports:
       - 88:80
-    restart: unless-stopped
+    restart: always
     depends_on:
       - api
   api:
@@ -19,7 +19,7 @@ services:
       no_cache: true
       pull: false
     container_name: api
-    restart: unless-stopped
+    restart: always
     ports:
       - 8081:8081
     env_file:
