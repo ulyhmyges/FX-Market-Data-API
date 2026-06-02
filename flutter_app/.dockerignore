@@ -1,0 +1,5 @@
+build
+.idea
+.dart_tool
+.*
+pricer_app.iml
