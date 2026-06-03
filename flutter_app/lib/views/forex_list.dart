@@ -22,7 +22,7 @@ class _ForexListState extends State<ForexList> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text("Forex List"),
+        title: Text("Exchange rates data"),
         actionsPadding: EdgeInsetsGeometry.symmetric(horizontal: 50),
         actions: [
           ElevatedButton(
@@ -31,8 +31,8 @@ class _ForexListState extends State<ForexList> {
                 if (states.contains(WidgetState.hovered)) {
                   return Colors.orange.shade200;
                 }
+                return null;
               }),
-
               // padding: WidgetStateProperty.all(EdgeInsetsGeometry.all(5)),
             ),
             onPressed: () {
@@ -74,6 +74,7 @@ class _ForexListState extends State<ForexList> {
               itemBuilder: (context, index) {
                 final forex = forex_list[index];
                 return ListTile(
+                  hoverColor: Colors.cyan,
                   leading: Icon(Icons.label_important_outline_rounded),
                   trailing: Icon(Icons.control_point_rounded),
                   title: Text("${forex.key} "),

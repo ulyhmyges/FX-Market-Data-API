@@ -13,18 +13,78 @@ class CurrencyWidget extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Information on currency"),
-      ),
-      body: Center(
-        child: Padding(
-          padding: EdgeInsets.all(100),
-          child: Column(
-            children: [
-              Text("name: ${ccy.name}"),
-              Text("symbol: ${ccy.symbol}"),
-              Text("amount: 1 $base"),
-              Text("price: $rate ${ccy.symbol}")
-            ],
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+        actionsPadding: EdgeInsetsGeometry.symmetric(horizontal: 50),
+        actions: [
+          ElevatedButton(
+            style: ButtonStyle(
+              backgroundColor: WidgetStateProperty.resolveWith((states) {
+                if (states.contains(WidgetState.hovered)) {
+                  return Colors.orange.shade200;
+                }
+                return null;
+              }),
+              // padding: WidgetStateProperty.all(EdgeInsetsGeometry.all(5)),
+            ),
+            onPressed: () {
+              Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+            },
+            child: Row(
+              spacing: 5,
+              children: [Icon(Icons.home), Text('Home')],
+            ),
           ),
+        ],
+      ),
+      body: Padding(
+        padding: EdgeInsets.only(left: 450, right: 450, top: 150),
+        child: Column(
+          children: [
+            Container(
+              color: Colors.orange.shade200,
+              padding: const EdgeInsets.all(8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("name", style: TextStyle(fontSize: 21)),
+                  Text("${ccy.name}", style: TextStyle(fontSize: 23)),
+                ],
+              ),
+            ),
+            Container(
+              color: Colors.orange.shade300,
+              padding: const EdgeInsets.all(8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("symbol", style: TextStyle(fontSize: 21)),
+                  Text(ccy.symbol, style: TextStyle(fontSize: 23)),
+                ],
+              ),
+            ),
+            Container(
+              color: Colors.orange.shade200,
+              padding: const EdgeInsets.all(8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("amount", style: TextStyle(fontSize: 21)),
+                  Text(base, style: TextStyle(fontSize: 23)),
+                ],
+              ),
+            ),
+            Container(
+              color: Colors.orange.shade300,
+              padding: const EdgeInsets.all(8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("price", style: TextStyle(fontSize: 21)),
+                  Text("$rate ${ccy.symbol}", style: TextStyle(fontSize: 23)),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );

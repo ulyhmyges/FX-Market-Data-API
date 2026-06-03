@@ -72,6 +72,7 @@ class DashboardWidgetState extends State<DashboardWidget> {
                 if (states.contains(WidgetState.hovered)) {
                   return Colors.orange.shade200;
                 }
+                return null;
               }),
               // padding: WidgetStateProperty.all(EdgeInsetsGeometry.all(5)),
             ),
@@ -81,6 +82,28 @@ class DashboardWidgetState extends State<DashboardWidget> {
             child: Row(
               spacing: 5,
               children: [Icon(Icons.home), Text('Home')],
+            ),
+          ),
+          SizedBox(width: 10),
+          ElevatedButton(
+            style: ButtonStyle(
+              backgroundColor: WidgetStateProperty.resolveWith((states) {
+                if (states.contains(WidgetState.hovered)) {
+                  return Colors.orange.shade200;
+                }
+                return null;
+              }),
+            ),
+            onPressed: () {
+              Navigator.pushNamedAndRemoveUntil(
+                context,
+                '/logout',
+                (route) => false,
+              );
+            },
+            child: Row(
+              spacing: 5,
+              children: [Icon(Icons.logout), Text('Logout')],
             ),
           ),
         ],

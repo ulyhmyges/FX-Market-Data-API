@@ -98,7 +98,7 @@ class LoginFormWidgetState extends State<LoginFormWidget> {
         child: Form(
           key: _formKey,
           child: Column(
-            spacing: 10,
+            spacing: 15,
             children: [
               TextFormField(
                 controller: _pseudoC,
@@ -110,7 +110,19 @@ class LoginFormWidgetState extends State<LoginFormWidget> {
                 validator: _validateRequiredString,
                 decoration: InputDecoration(labelText: "Password"),
               ),
-              ElevatedButton(onPressed: _submitForm, child: Text('Validate')),
+              ElevatedButton(
+                style: ButtonStyle(
+                  minimumSize:  WidgetStateProperty.all(const Size(850, 50)), // width, height,
+                  backgroundColor: WidgetStateProperty.resolveWith((states){
+                    if (states.contains(WidgetState.hovered)) {
+                      return Colors.cyan;
+                    }
+                    return null;
+                  }),
+                ),
+                onPressed: _submitForm, 
+                child: Text('Validate', style: TextStyle(fontSize: 23))
+              ),
             ],
           ),
         ),

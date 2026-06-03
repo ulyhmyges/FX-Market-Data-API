@@ -29,7 +29,7 @@ class AuthGateWidget extends StatelessWidget {
             if (session.token_expired) {
               return const Welcome(title: 'Option Pricer');
             }
-            return const HomeWidget(title: 'Home');
+            return const HomeWidget(title: 'Option Pricer Home');
           }
           return const Welcome(title: 'Option Pricer');
         }

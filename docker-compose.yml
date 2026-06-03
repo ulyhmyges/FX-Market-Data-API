@@ -17,7 +17,6 @@ services:
       context: ./cpp_api
       dockerfile: Dockerfile
       no_cache: true
-      pull: false
     container_name: api
     restart: always
     ports:

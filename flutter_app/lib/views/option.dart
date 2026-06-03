@@ -37,13 +37,17 @@ class OptionWidget extends StatelessWidget {
                 if (states.contains(WidgetState.hovered)) {
                   return Colors.orange.shade200;
                 }
+                return null;
               }),
               // padding: WidgetStateProperty.all(EdgeInsetsGeometry.all(5)),
             ),
             onPressed: () {
               Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
             },
-            child: Row(spacing: 5, children: [Icon(Icons.home), Text('Home')]),
+            child: Row(
+              spacing: 5, 
+              children: [Icon(Icons.home), Text('Home')]
+            ),
           ),
           SizedBox(width: 10),
           ElevatedButton(
@@ -76,60 +80,60 @@ class OptionWidget extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("id", style: TextStyle(fontSize: 17)),
-                Text("${option.id}", style: TextStyle(fontSize: 17)),
+                Text("id", style: TextStyle(fontSize: 23)),
+                Text("${option.id}", style: TextStyle(fontSize: 23)),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("type", style: TextStyle(fontSize: 17)),
+                Text("type", style: TextStyle(fontSize: 23)),
                 Text(
                   option.type.toString(),
-                  style: TextStyle(fontSize: 17),
+                  style: TextStyle(fontSize: 23),
                 ),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("spot", style: TextStyle(fontSize: 17)),
-                Text("${option.spot}", style: TextStyle(fontSize: 17)),
+                Text("spot", style: TextStyle(fontSize: 23)),
+                Text("${option.spot}", style: TextStyle(fontSize: 23)),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("strike", style: TextStyle(fontSize: 17)),
-                Text("${option.strike}", style: TextStyle(fontSize: 17)),
+                Text("strike", style: TextStyle(fontSize: 23)),
+                Text("${option.strike}", style: TextStyle(fontSize: 23)),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("risk-free rate domestic", style: TextStyle(fontSize: 17)),
-                Text("${option.rateDomestic}", style: TextStyle(fontSize: 17)),
+                Text("risk-free rate domestic", style: TextStyle(fontSize: 23)),
+                Text("${option.rateDomestic}", style: TextStyle(fontSize: 23)),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("risk-free rate foreign", style: TextStyle(fontSize: 17)),
-                Text("${option.rateForeign}", style: TextStyle(fontSize: 17)),
+                Text("risk-free rate foreign", style: TextStyle(fontSize: 23)),
+                Text("${option.rateForeign}", style: TextStyle(fontSize: 23)),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("maturity", style: TextStyle(fontSize: 17)),
-                Text(option.maturity, style: TextStyle(fontSize: 17)),
+                Text("maturity", style: TextStyle(fontSize: 23)),
+                Text(option.maturity, style: TextStyle(fontSize: 23)),
               ],
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("day counter", style: TextStyle(fontSize: 17)),
-                Text("${option.dayCounter}", style: TextStyle(fontSize: 17)),
+                Text("day counter", style: TextStyle(fontSize: 23)),
+                Text("${option.dayCounter}", style: TextStyle(fontSize: 23)),
               ],
             ),
             FutureBuilder(
@@ -150,45 +154,52 @@ class OptionWidget extends StatelessWidget {
                 final Option computedOption = snapshot.data!;
                 return Padding(
                   padding: const EdgeInsets.all(50),
-                  child: Text(
-                    style: TextStyle(
-                      fontSize: 19,
-                      backgroundColor: Colors.orange.shade100,
-                    ),
-                    "price: ${computedOption.price}",
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text("result", style: TextStyle(fontSize: 23)),
+                      Text("${computedOption.price}", style: TextStyle(fontSize: 25, backgroundColor: Colors.orange.shade100))
+                    ],
                   ),
                 );
               },
             ),
             ElevatedButton(
-                onPressed:
-                () async {
-                  final OptionState state = await _saveOption(context);
-
-                  if (state == OptionState.Stored){
-                    showDialog<void>(
-                        context: context,
-                        builder: (BuildContext context){
-                          return AlertDialog(
-                            title: const Text('Option Pricer'),
-                            content: const Text('Option saved'),
-                            actions: <Widget>[
-                              TextButton(
-                                  onPressed: () {Navigator.pushNamedAndRemoveUntil(
-                                      context, '/option/pricer', (route) => false);},
-                                  child: const Text('OK')
-                              )
-                            ],
-                          );
-                        }
-                    );
+              style: ButtonStyle(
+                minimumSize:  WidgetStateProperty.all(const Size(450, 50)), // width, height,
+                backgroundColor: WidgetStateProperty.resolveWith((states){
+                  if (states.contains(WidgetState.hovered)) {
+                    return Colors.cyan;
                   }
+                  return null;
+                }),
+              ),
+              onPressed:
+              () async {
+                final OptionState state = await _saveOption(context);
 
-                },
-                child: Text('Save')
+                if (state == OptionState.Stored){
+                  showDialog<void>(
+                      context: context,
+                      builder: (BuildContext context){
+                        return AlertDialog(
+                          title: const Text('Option Pricer'),
+                          content: const Text('Option saved'),
+                          actions: <Widget>[
+                            TextButton(
+                                onPressed: () {Navigator.pushNamedAndRemoveUntil(
+                                    context, '/option/pricer', (route) => false);},
+                                child: const Text('OK')
+                            )
+                          ],
+                        );
+                      }
+                  );
+                }
+
+              },
+              child: Text('Save', style: TextStyle(fontSize: 23))
             )
-
-
           ],
         ),
       ),

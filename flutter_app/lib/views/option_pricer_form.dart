@@ -161,6 +161,7 @@ class OptionPricerFormState extends State<OptionPricerForm> {
                 if (states.contains(WidgetState.hovered)) {
                   return Colors.orange.shade200;
                 }
+                return null;
               }),
               // padding: WidgetStateProperty.all(EdgeInsetsGeometry.all(5)),
             ),
@@ -176,6 +177,7 @@ class OptionPricerFormState extends State<OptionPricerForm> {
                 if (states.contains(WidgetState.hovered)) {
                   return Colors.orange.shade200;
                 }
+                return null;
               }),
 
               // padding: WidgetStateProperty.all(EdgeInsetsGeometry.all(5)),
@@ -195,7 +197,7 @@ class OptionPricerFormState extends State<OptionPricerForm> {
         ],
       ),
       body: Padding(
-        padding: EdgeInsets.all(150),
+        padding: EdgeInsets.only(left: 350, right: 350, top: 90),
         child: Form(
           key: _formKey,
           child: SingleChildScrollView(
@@ -265,7 +267,19 @@ class OptionPricerFormState extends State<OptionPricerForm> {
                   validator: validateRequiredString,
                   decoration: InputDecoration(labelText: "Day Counter"),
                 ),
-                ElevatedButton(onPressed: _submitForm, child: Text("Compute")),
+                ElevatedButton(
+                  style: ButtonStyle(
+                    minimumSize:  WidgetStateProperty.all(const Size(450, 50)), // width, height,
+                    backgroundColor: WidgetStateProperty.resolveWith((states){
+                      if (states.contains(WidgetState.hovered)) {
+                        return Colors.cyan;
+                      }
+                      return null;
+                    }),
+                  ),
+                  onPressed: _submitForm, 
+                  child: Text("Compute", style: TextStyle(fontSize: 23))
+                ),
               ],
             ),
           ),

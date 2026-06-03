@@ -24,6 +24,7 @@ class HomeWidget extends StatelessWidget {
                   if (states.contains(WidgetState.hovered)) {
                     return Colors.orange.shade200;
                   }
+                  return null;
                 })
             ),
             onPressed: () {
@@ -49,6 +50,15 @@ class HomeWidget extends StatelessWidget {
             spacing: 30,
             children: [
               ElevatedButton(
+                  style: ButtonStyle(
+                  minimumSize:  WidgetStateProperty.all(const Size(1050, 80)), // width, height,
+                  backgroundColor: WidgetStateProperty.resolveWith((states){
+                    if (states.contains(WidgetState.hovered)) {
+                      return Colors.cyan;
+                    }
+                    return null;
+                  }),
+                ),
                 onPressed: () {
                   Navigator.push(
                     context,
@@ -57,25 +67,43 @@ class HomeWidget extends StatelessWidget {
                     ),
                   );
                 },
-                child: Text('Forex'),
+                child: Text('Exchange rates data with EUR as the base currency', style: TextStyle(fontSize: 25)),
               ),
               ElevatedButton(
+                style: ButtonStyle(
+                  minimumSize:  WidgetStateProperty.all(const Size(1050, 80)), // width, height,
+                  backgroundColor: WidgetStateProperty.resolveWith((states){
+                    if (states.contains(WidgetState.hovered)) {
+                      return Colors.cyan;
+                    }
+                    return null;
+                  }),
+                ),
                 onPressed: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => OptionPricerForm()),
                   );
                 },
-                child: Text('Option Pricer'),
+                child: Text('Compute Option Price', style: TextStyle(fontSize: 25)),
               ),
               ElevatedButton(
+                style: ButtonStyle(
+                  minimumSize:  WidgetStateProperty.all(const Size(1050, 80)), // width, height,
+                  backgroundColor: WidgetStateProperty.resolveWith((states){
+                    if (states.contains(WidgetState.hovered)) {
+                      return Colors.cyan;
+                    }
+                    return null;
+                  }),
+                ),
                 onPressed: () {
                   Navigator.push(
                     context,
                     MaterialPageRoute(builder: (context) => DashboardWidget()),
                   );
                 },
-                child: Text('Dashboard'),
+                child: Text('Dashboard', style: TextStyle(fontSize: 25)),
               ),
             ],
           ),
