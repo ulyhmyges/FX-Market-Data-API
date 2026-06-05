@@ -21,11 +21,10 @@ class OptionPricerFormState extends State<OptionPricerForm> {
   final StorageService _storageService = StorageService.getInstance();
 
   static const apiHOST = String.fromEnvironment('API_HOST', defaultValue: 'localhost');
-  static const apiPORT = String.fromEnvironment('API_PORT', defaultValue: '8080');
+  static const appHOST = String.fromEnvironment('APP_HOST', defaultValue: 'localhost');
+  static const appPORT = String.fromEnvironment('APP_PORT', defaultValue: '80');
 
-  final UserService _userService = UserService(
-    baseURL: 'http://$apiHOST:$apiPORT/auth',
-  );
+  final UserService _userService = UserService(baseURL: 'http://$appHOST:$appPORT/$apiHOST/auth');
 
   late GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   late int _id;
@@ -163,7 +162,6 @@ class OptionPricerFormState extends State<OptionPricerForm> {
                 }
                 return null;
               }),
-              // padding: WidgetStateProperty.all(EdgeInsetsGeometry.all(5)),
             ),
             onPressed: () {
               Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
@@ -179,8 +177,6 @@ class OptionPricerFormState extends State<OptionPricerForm> {
                 }
                 return null;
               }),
-
-              // padding: WidgetStateProperty.all(EdgeInsetsGeometry.all(5)),
             ),
             onPressed: () {
               Navigator.pushNamedAndRemoveUntil(
