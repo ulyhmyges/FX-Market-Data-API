@@ -19,10 +19,11 @@ class SubscribeFormWidgetState extends State<SubscribeFormWidget> {
   final _passwordC = TextEditingController();
 
   static const apiHOST = String.fromEnvironment('API_HOST', defaultValue: 'localhost');
-  static const apiPORT = String.fromEnvironment('API_PORT', defaultValue: '8080');
-
-  final _userService = UserService(baseURL: 'http://$apiHOST:$apiPORT/auth');
-  final _storageService = StorageService.getInstance();
+  static const appHOST = String.fromEnvironment('APP_HOST', defaultValue: 'localhost');
+  static const appPORT = String.fromEnvironment('APP_PORT', defaultValue: '80');
+  
+  final UserService _userService = UserService(baseURL: 'http://$appHOST:$appPORT/$apiHOST/auth');
+  final StorageService _storageService = StorageService.getInstance();
 
   String? _validateRequiredString(String? value) {
     if (value == null || value.isEmpty) return 'The field is mandatory';
