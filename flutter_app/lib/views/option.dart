@@ -7,15 +7,18 @@ class OptionWidget extends StatelessWidget {
   final Option option;
 
   static const apiHOST = String.fromEnvironment('API_HOST', defaultValue: 'localhost');
-  static const apiPORT = String.fromEnvironment('API_PORT', defaultValue: '8080');
+  static const appHOST = String.fromEnvironment('APP_HOST', defaultValue: 'localhost');
+  static const appPORT = String.fromEnvironment('APP_PORT', defaultValue: '80');
+  static const String optionBaseURL = 'http://$appHOST:$appPORT/$apiHOST/option';
 
   const OptionWidget({super.key, required this.option});
 
   Future<OptionState> _saveOption(BuildContext context) async {
     try {
-      if (option.client == 'error')
+      if (option.client == 'error') {
         Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
-      final OptionState state = await OptionService(baseURL: 'http://$apiHOST:$apiPORT/option').updateOrStoreOption(option);
+      }
+      final OptionState state = await OptionService(baseURL: optionBaseURL).updateOrStoreOption(option);
       return state;
     } catch (e) {
       return OptionState.Unstored;
@@ -137,7 +140,7 @@ class OptionWidget extends StatelessWidget {
             ),
             FutureBuilder(
               future: OptionService(
-                baseURL: "http://$apiHOST:$apiPORT/option",
+                baseURL: optionBaseURL,
               ).getPrice(option),
               builder: (context, snapshot) {
                 if (snapshot.connectionState == ConnectionState.waiting) {
