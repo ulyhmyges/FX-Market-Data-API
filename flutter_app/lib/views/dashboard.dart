@@ -16,11 +16,14 @@ class DashboardWidget extends StatefulWidget {
 }
 
 class DashboardWidgetState extends State<DashboardWidget> {
+
   static const apiHOST = String.fromEnvironment('API_HOST', defaultValue: 'localhost');
-  static const apiPORT = String.fromEnvironment('API_PORT', defaultValue: '8080');
-  final UserService _userService = UserService(baseURL: 'http://$apiHOST:$apiPORT/auth');
+  static const appHOST = String.fromEnvironment('APP_HOST', defaultValue: 'localhost');
+  static const appPORT = String.fromEnvironment('APP_PORT', defaultValue: '80');
+
+  final UserService _userService = UserService(baseURL: "http://$appHOST:$appPORT/$apiHOST/auth");
+  final OptionService _optionService = OptionService(baseURL: 'http://$appHOST:$appPORT/$apiHOST/option');
   final _storageService = StorageService.getInstance();
-  final _optionService = OptionService(baseURL: 'http://$apiHOST:$apiPORT/option');
   Session? _session;
 
   @override
@@ -74,7 +77,6 @@ class DashboardWidgetState extends State<DashboardWidget> {
                 }
                 return null;
               }),
-              // padding: WidgetStateProperty.all(EdgeInsetsGeometry.all(5)),
             ),
             onPressed: () {
               Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);

@@ -24,7 +24,6 @@ class CurrencyWidget extends StatelessWidget {
                 }
                 return null;
               }),
-              // padding: WidgetStateProperty.all(EdgeInsetsGeometry.all(5)),
             ),
             onPressed: () {
               Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
