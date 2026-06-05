@@ -39,7 +39,6 @@ class OptionWidget extends StatelessWidget {
                 }
                 return null;
               }),
-              // padding: WidgetStateProperty.all(EdgeInsetsGeometry.all(5)),
             ),
             onPressed: () {
               Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
@@ -74,7 +73,7 @@ class OptionWidget extends StatelessWidget {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.only(left: 400, right: 400, top: 50),
+        padding: const EdgeInsets.only(left: 450, right: 450, top: 90),
         child: Column(
           children: [
             Row(

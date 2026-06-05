@@ -76,8 +76,8 @@ class SubscribeFormWidgetState extends State<SubscribeFormWidget> {
                 if (states.contains(WidgetState.hovered)) {
                   return Colors.orange.shade200;
                 }
+                return null;
               }),
-              // padding: WidgetStateProperty.all(EdgeInsetsGeometry.all(5)),
             ),
             onPressed: () {
               Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);

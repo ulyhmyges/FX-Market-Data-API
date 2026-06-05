@@ -28,7 +28,7 @@ class OptionDetailsWidget extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
-        title: Text('Option information'),
+        title: Text('Option details'),
         actionsPadding: EdgeInsetsGeometry.symmetric(horizontal: 50),
         actions: [
           ElevatedButton(
@@ -37,6 +37,7 @@ class OptionDetailsWidget extends StatelessWidget {
                 if (states.contains(WidgetState.hovered)) {
                   return Colors.orange.shade200;
                 }
+                return null;
               }),
               // padding: WidgetStateProperty.all(EdgeInsetsGeometry.all(5)),
             ),
@@ -53,7 +54,6 @@ class OptionDetailsWidget extends StatelessWidget {
                   return Colors.orange.shade200;
                 }
               }),
-              // padding: WidgetStateProperty.all(EdgeInsetsGeometry.all(5)),
             ),
             onPressed: () {
               Navigator.pushNamedAndRemoveUntil(
@@ -70,80 +70,125 @@ class OptionDetailsWidget extends StatelessWidget {
         ],
       ),
       body: Padding(
-        padding: const EdgeInsets.only(left: 400, right: 400, top: 50),
+        padding: const EdgeInsets.only(left: 450, right: 450, top: 90),
         child: Column(
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text("id", style: TextStyle(fontSize: 17)),
-                Text("${option.id}", style: TextStyle(fontSize: 17)),
-              ],
+            Container(
+              color: Colors.orange.shade200,
+              padding: const EdgeInsets.all(8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("id", style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold)),
+                  Text("${option.id}", style: TextStyle(fontSize: 21)),
+                ],
+              ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text("type", style: TextStyle(fontSize: 17)),
-                Text(
-                  option.type.toString(),
-                  style: TextStyle(fontSize: 17),
-                ),
-              ],
+            Container(
+              color: Colors.orange.shade300,
+              padding: const EdgeInsets.all(8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("type", style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold)),
+                  Text(
+                    option.type.toString(),
+                    style: TextStyle(fontSize: 21),
+                  ),
+                ],
+              ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text("spot", style: TextStyle(fontSize: 17)),
-                Text("${option.spot}", style: TextStyle(fontSize: 17)),
-              ],
+            Container(
+              color: Colors.orange.shade200,
+              padding: const EdgeInsets.all(8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("spot", style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold)),
+                  Text("${option.spot}", style: TextStyle(fontSize: 21)),
+                ],
+              ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text("strike", style: TextStyle(fontSize: 17)),
-                Text("${option.strike}", style: TextStyle(fontSize: 17)),
-              ],
+            Container(
+              color: Colors.orange.shade300,
+              padding: const EdgeInsets.all(8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("strike", style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold)),
+                  Text("${option.strike}", style: TextStyle(fontSize: 21)),
+                ],
+              ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text("risk-free rate domestic", style: TextStyle(fontSize: 17)),
-                Text("${option.rateDomestic}", style: TextStyle(fontSize: 17)),
-              ],
+            Container(
+              color: Colors.orange.shade200,
+              padding: const EdgeInsets.all(8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("risk-free rate domestic", style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold)),
+                  Text("${option.rateDomestic}", style: TextStyle(fontSize: 21)),
+                ],
+              ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text("risk-free rate foreign", style: TextStyle(fontSize: 17)),
-                Text("${option.rateForeign}", style: TextStyle(fontSize: 17)),
-              ],
+            Container(
+              color: Colors.orange.shade300,
+              padding: const EdgeInsets.all(8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("risk-free rate foreign", style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold)),
+                  Text("${option.rateForeign}", style: TextStyle(fontSize: 21)),
+                ],
+              ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text("maturity", style: TextStyle(fontSize: 17)),
-                Text(option.maturity, style: TextStyle(fontSize: 17)),
-              ],
+            Container(
+              color: Colors.orange.shade200,
+              padding: const EdgeInsets.all(8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("maturity", style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold)),
+                  Text(option.maturity, style: TextStyle(fontSize: 21)),
+                ],
+              ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text("day counter", style: TextStyle(fontSize: 17)),
-                Text("${option.dayCounter}", style: TextStyle(fontSize: 17)),
-              ],
+            Container(
+              color: Colors.orange.shade300,
+              padding: const EdgeInsets.all(8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("day counter", style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold)),
+                  Text("${option.dayCounter}", style: TextStyle(fontSize: 21)),
+                ],
+              ),
             ),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text("price", style: TextStyle(fontSize: 17)),
-                Text("${option.price}", style: TextStyle(fontSize: 17)),
-              ],
+            Container(
+              color: Colors.orange.shade200,
+              padding: const EdgeInsets.all(8),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("price", style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold)),
+                  Text("${option.price}", style: TextStyle(fontSize: 21)),
+                ],
+              ),
             ),
             SizedBox(height: 50),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
+                  style: ButtonStyle(
+                    minimumSize:  WidgetStateProperty.all(const Size(250, 50)), // width, height,
+                    backgroundColor: WidgetStateProperty.resolveWith((states){
+                      if (states.contains(WidgetState.hovered)) {
+                        return Colors.cyan;
+                      }
+                      return null;
+                    }),
+                  ),
                   onPressed: () async {
                     Navigator.of(context).push(
                       MaterialPageRoute(
@@ -151,10 +196,19 @@ class OptionDetailsWidget extends StatelessWidget {
                       ),
                     );
                   },
-                  child: Text('Edit'),
+                  child: Text('Edit', style: TextStyle(fontSize: 23)),
                 ),
                 SizedBox(width: 30),
                 ElevatedButton(
+                  style: ButtonStyle(
+                    minimumSize:  WidgetStateProperty.all(const Size(250, 50)), // width, height,
+                    backgroundColor: WidgetStateProperty.resolveWith((states){
+                      if (states.contains(WidgetState.hovered)) {
+                        return Colors.cyan;
+                      }
+                      return null;
+                    }),
+                  ),
                   onPressed: () async {
                     final String msg = await _deleteOption(option.id ?? 0);
                     if (msg.isNotEmpty) {
@@ -187,7 +241,7 @@ class OptionDetailsWidget extends StatelessWidget {
                       );
                     }
                   },
-                  child: Text('Delete'),
+                  child: Text('Delete', style: TextStyle(fontSize: 23)),
                 ),
               ],
             ),

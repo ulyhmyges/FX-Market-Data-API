@@ -63,14 +63,32 @@ class LoginFormWidgetState extends State<LoginFormWidget> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        title: Text('Log in'),
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         actionsPadding: EdgeInsetsGeometry.symmetric(horizontal: 50),
         actions: [
+              ElevatedButton(
+            style: ButtonStyle(
+              backgroundColor: WidgetStateProperty.resolveWith((states) {
+                if (states.contains(WidgetState.hovered)) {
+                  return Colors.orange.shade200;
+                }
+                return null;
+              }),
+            ),
+            onPressed: () {
+              Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
+            },
+            child: Row(spacing: 5, children: [Icon(Icons.home), Text('Home')]),
+          ),
+          SizedBox(width: 10),
           ElevatedButton(
             style: ButtonStyle(
                 backgroundColor: WidgetStateProperty.resolveWith((states){
                   if (states.contains(WidgetState.hovered)) {
                     return Colors.orange.shade200;
                   }
+                  return null;
                 })
             ),
             onPressed: () {
@@ -83,15 +101,10 @@ class LoginFormWidgetState extends State<LoginFormWidget> {
             },
             child: Row(
               spacing: 5,
-              children: [
-                Icon(Icons.add),
-                Text('Subscribe')
-              ],
+              children: [Icon(Icons.add), Text('Subscribe')]
             ),
           ),
-        ],
-        title: Text('Login'),
-        backgroundColor: Theme.of(context).colorScheme.inversePrimary
+        ]
       ),
       body: Padding(
         padding: EdgeInsets.all(100),

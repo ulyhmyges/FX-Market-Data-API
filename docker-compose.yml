@@ -16,7 +16,7 @@ services:
     build:
       context: ./cpp_api
       dockerfile: Dockerfile
-      no_cache: true
+      no_cache: false
     container_name: api
     restart: always
     ports:
@@ -27,7 +27,7 @@ services:
       - db
     
   db:
-    image: postgres:17
+    image: postgres:18.4-alpine3.23
     restart: unless-stopped
     container_name: db
     # set shared memory limit when using docker compose
@@ -39,15 +39,15 @@ services:
     ports:
       - 5432:5432
     volumes:
-      - datavolume:/var/lib/postgresql/data
+      - datavolume:/var/lib/postgresql
       - ./cpp_api/database/script.sql:/docker-entrypoint-initdb.d/script.sql
 
-  adminer:
-    image: adminer:5
-    restart: unless-stopped
-    container_name: gui
-    ports:
-      - 8083:8080
+  # adminer:
+  #   image: adminer:5
+  #   restart: unless-stopped
+  #   container_name: gui
+  #   ports:
+  #     - 8083:8080
 
 volumes:
   datavolume:

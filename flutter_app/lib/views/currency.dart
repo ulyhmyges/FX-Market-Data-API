@@ -46,8 +46,8 @@ class CurrencyWidget extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("name", style: TextStyle(fontSize: 21)),
-                  Text("${ccy.name}", style: TextStyle(fontSize: 23)),
+                  Text("name", style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold)),
+                  Text("${ccy.name}", style: TextStyle(fontSize: 21)),
                 ],
               ),
             ),
@@ -57,8 +57,8 @@ class CurrencyWidget extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("symbol", style: TextStyle(fontSize: 21)),
-                  Text(ccy.symbol, style: TextStyle(fontSize: 23)),
+                  Text("symbol", style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold)),
+                  Text(ccy.symbol, style: TextStyle(fontSize: 21)),
                 ],
               ),
             ),
@@ -68,8 +68,8 @@ class CurrencyWidget extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("amount", style: TextStyle(fontSize: 21)),
-                  Text(base, style: TextStyle(fontSize: 23)),
+                  Text("amount", style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold)),
+                  Text(base, style: TextStyle(fontSize: 21)),
                 ],
               ),
             ),
@@ -79,8 +79,8 @@ class CurrencyWidget extends StatelessWidget {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("price", style: TextStyle(fontSize: 21)),
-                  Text("$rate ${ccy.symbol}", style: TextStyle(fontSize: 23)),
+                  Text("price", style: TextStyle(fontSize: 21, fontWeight: FontWeight.bold)),
+                  Text("$rate ${ccy.symbol}", style: TextStyle(fontSize: 21)),
                 ],
               ),
             ),
