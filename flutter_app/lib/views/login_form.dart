@@ -21,9 +21,10 @@ class LoginFormWidgetState extends State<LoginFormWidget> {
   final _passwordC = TextEditingController();
 
   static const apiHOST = String.fromEnvironment('API_HOST', defaultValue: 'localhost');
-  static const apiPORT = String.fromEnvironment('API_PORT', defaultValue: '8080');
+  static const appHOST = String.fromEnvironment('APP_HOST', defaultValue: 'localhost');
+  static const appPORT = String.fromEnvironment('APP_PORT', defaultValue: '80');
 
-  final _userService = UserService(baseURL: "http://$apiHOST:$apiPORT/auth");
+  final _userService = UserService(baseURL: "http://localhost:$appPORT/$apiHOST/auth");
   final _storageService = StorageService.getInstance();
 
   String? _validateRequiredString(String? value) {
