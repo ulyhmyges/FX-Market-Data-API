@@ -1,16 +1,12 @@
 # RESTApi
 
 Create a Restful API server using C++ library (Boost.Beast)
-
-## Running the server
-
-```shell
-make start
-```
+Run the API
 
 ## Installation
 
 - Install OpenSSL
+
 ```shell
 brew install openssl
 ```
@@ -85,7 +81,7 @@ brew install libpqxx
 brew install pkg-config
 ```
 
-- Verification 
+- Verification
 
 ```shell
 psql --version        # PostgreSQL CLI
@@ -93,15 +89,25 @@ pg_config --version   # PostgreSQL config tool
 pkg-config --modversion libpqxx  # Should print libpqxx version
 ```
 
-## Tutorial API
+## Running the server
+
+```shell
+# from the root directory
+cd cpp_api
+make start
+```
+
+The result is at <http://localhost:8081>
+
+### Tutorial API
 
 <https://medium.com/@AlexanderObregon/building-restful-apis-with-c-4c8ac63fe8a7>
 
-## add JSON support
+### add JSON support
 
 <https://github.com/nlohmann/json>
 
-## currency API
+### currency API
 
 Exchange rates: <https://frankfurter.dev>
 <https://api.frankfurter.app/latest?from=EUR&to=USD>

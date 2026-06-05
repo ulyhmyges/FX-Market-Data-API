@@ -1,22 +1,23 @@
 # FX-Market-Data-API
 
-A new Flutter project on forex prices and pricing options on forex
+A new Flutter web app that
+    - give exchange rates data with EUR as the base currency from external api
+    - compute the price of options from backend c++ api
+    - persist users and options data on postgreSQL database
 
 ## Getting Started
 
-Run the web app
+### Clone and run the project
 
 ```shell
-cd flutter_app
-flutter run -d chrome
+git clone https://github.com/ulyhmyges/FX-Market-Data-API.git
+cd FX-Market-Data-API
+make all
 ```
 
-Run the API
+That will build the project and the result is at <http://localhost:88>
 
-```shell
-cd cpp_api
-make start
-```
+
 
 ## cpp_api
 
