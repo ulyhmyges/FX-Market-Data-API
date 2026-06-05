@@ -8,14 +8,16 @@ class OptionDetailsWidget extends StatelessWidget {
   final Option option;
 
   static const apiHOST = String.fromEnvironment('API_HOST', defaultValue: 'localhost');
-  static const apiPORT = String.fromEnvironment('API_PORT', defaultValue: '8080');
+  static const appHOST = String.fromEnvironment('APP_HOST', defaultValue: 'localhost');
+  static const appPORT = String.fromEnvironment('APP_PORT', defaultValue: '80');
+  static const String optionBaseURL = 'http://$appHOST:$appPORT/$apiHOST/option';
 
   const OptionDetailsWidget({super.key, required this.option});
 
   Future<String> _deleteOption(int id) async {
     try { 
       final String message = await OptionService(
-        baseURL: 'http://$apiHOST:$apiPORT/option',
+        baseURL: optionBaseURL,
       ).deleteOption(id);
       return message;
     } catch (e) {
@@ -39,7 +41,6 @@ class OptionDetailsWidget extends StatelessWidget {
                 }
                 return null;
               }),
-              // padding: WidgetStateProperty.all(EdgeInsetsGeometry.all(5)),
             ),
             onPressed: () {
               Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
