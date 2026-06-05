@@ -24,7 +24,7 @@ class LoginFormWidgetState extends State<LoginFormWidget> {
   static const appHOST = String.fromEnvironment('APP_HOST', defaultValue: 'localhost');
   static const appPORT = String.fromEnvironment('APP_PORT', defaultValue: '80');
 
-  final _userService = UserService(baseURL: "http://localhost:$appPORT/$apiHOST/auth");
+  final _userService = UserService(baseURL: "http://$appHOST:$appPORT/$apiHOST/auth");
   final _storageService = StorageService.getInstance();
 
   String? _validateRequiredString(String? value) {

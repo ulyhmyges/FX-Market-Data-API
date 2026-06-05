@@ -10,8 +10,10 @@ class AuthGateWidget extends StatelessWidget {
   final StorageService _storageService = StorageService.getInstance();
   
   static const apiHOST = String.fromEnvironment('API_HOST', defaultValue: 'localhost');
-  static const apiPORT = String.fromEnvironment('API_PORT', defaultValue: '8080');
-  final UserService _userService = UserService(baseURL: 'http://$apiHOST:$apiPORT/auth');
+  static const appHOST = String.fromEnvironment('APP_HOST', defaultValue: 'localhost');
+  static const appPORT = String.fromEnvironment('APP_PORT', defaultValue: '80');
+
+  final UserService _userService = UserService(baseURL: "http://$appHOST:$appPORT/$apiHOST/auth");
 
   Future<Session> _me() async {
     final String? token = await _storageService.getToken();
