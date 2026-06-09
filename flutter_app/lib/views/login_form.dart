@@ -25,7 +25,8 @@ class LoginFormWidgetState extends State<LoginFormWidget> {
   static const appPORT = String.fromEnvironment('APP_PORT', defaultValue: '80');
 
   final _userService = UserService(baseURL: "http://$appHOST:$appPORT/$apiHOST/auth");
-  final _storageService = StorageService.getInstance();
+  //final _storageService = StorageService.getInstance();
+  final _storageService = StorageService();
 
   String? _validateRequiredString(String? value) {
     if (value == null || value.isEmpty) return 'The field is mandatory';
@@ -44,7 +45,8 @@ class LoginFormWidgetState extends State<LoginFormWidget> {
         ).showSnackBar(SnackBar(content: Text('Login successful!')));
 
         // store token
-        await _storageService.setToken(token);
+        //await _storageService.setToken(token);
+        _storageService.token = token;
 
         if (!mounted) return;
 

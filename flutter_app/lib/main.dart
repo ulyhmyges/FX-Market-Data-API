@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pricer_app/services/storage_service.dart';
 import 'package:pricer_app/views/auth_gate.dart';
 import 'package:pricer_app/views/login_form.dart';
 import 'package:pricer_app/views/logout.dart';
@@ -6,7 +7,10 @@ import 'package:pricer_app/views/option_pricer_form.dart';
 import 'package:pricer_app/views/subscribe_form.dart';
 import 'package:pricer_app/views/welcome.dart';
 
-void main() {
+void main() async {
+  //WidgetsFlutterBinding.ensureInitialized();
+  //await SharedPrefs().init();
+  await StorageService().init();
   runApp(const MyApp());
 }
 

@@ -7,7 +7,8 @@ import 'package:pricer_app/views/welcome.dart';
 
 class AuthGateWidget extends StatelessWidget {
   AuthGateWidget({super.key});
-  final StorageService _storageService = StorageService.getInstance();
+  //final StorageService _storageService = StorageService.getInstance();
+  final StorageService _storageService = StorageService();
   
   static const apiHOST = String.fromEnvironment('API_HOST', defaultValue: 'localhost');
   static const appHOST = String.fromEnvironment('APP_HOST', defaultValue: 'localhost');
@@ -16,7 +17,9 @@ class AuthGateWidget extends StatelessWidget {
   final UserService _userService = UserService(baseURL: "http://$appHOST:$appPORT/$apiHOST/auth");
 
   Future<Session> _me() async {
-    final String? token = await _storageService.getToken();
+    // final String? token = await _storageService.getToken();
+    final String token = _storageService.token;
+
     final Session session = await _userService.me(token!);
     return session;
   }

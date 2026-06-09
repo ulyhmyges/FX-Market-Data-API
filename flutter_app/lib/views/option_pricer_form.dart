@@ -18,7 +18,8 @@ class OptionPricerForm extends StatefulWidget {
 }
 
 class OptionPricerFormState extends State<OptionPricerForm> {
-  final StorageService _storageService = StorageService.getInstance();
+  // final StorageService _storageService = StorageService.getInstance();
+  final StorageService _storageService = StorageService();
 
   static const apiHOST = String.fromEnvironment('API_HOST', defaultValue: 'localhost');
   static const appHOST = String.fromEnvironment('APP_HOST', defaultValue: 'localhost');
@@ -78,8 +79,10 @@ class OptionPricerFormState extends State<OptionPricerForm> {
 
   _submitForm() async {
     if (_formKey.currentState!.validate()) {
-      final String? token = await _storageService.getToken();
-      final Session session = await _userService.me(token!);
+      // final String? token = await _storageService.getToken();
+      final String token = _storageService.token;
+      
+      final Session session = await _userService.me(token);
       final int id = _id;
       final type = Type.fromString(_typeC.text);
       final spot = double.parse(_spotC.text);

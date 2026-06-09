@@ -23,7 +23,8 @@ class SubscribeFormWidgetState extends State<SubscribeFormWidget> {
   static const appPORT = String.fromEnvironment('APP_PORT', defaultValue: '80');
   
   final UserService _userService = UserService(baseURL: 'http://$appHOST:$appPORT/$apiHOST/auth');
-  final StorageService _storageService = StorageService.getInstance();
+  // final StorageService _storageService = StorageService.getInstance();
+  final StorageService _storageService = StorageService();
 
   String? _validateRequiredString(String? value) {
     if (value == null || value.isEmpty) return 'The field is mandatory';
@@ -40,7 +41,8 @@ class SubscribeFormWidgetState extends State<SubscribeFormWidget> {
 
         final String token = await _userService.login(user);
         // store token
-        await _storageService.setToken(token);
+        // await _storageService.setToken(token);
+        _storageService.token = token;
 
         if (!mounted) return;
 

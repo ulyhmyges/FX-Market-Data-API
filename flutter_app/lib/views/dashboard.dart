@@ -23,7 +23,8 @@ class DashboardWidgetState extends State<DashboardWidget> {
 
   final UserService _userService = UserService(baseURL: "http://$appHOST:$appPORT/$apiHOST/auth");
   final OptionService _optionService = OptionService(baseURL: 'http://$appHOST:$appPORT/$apiHOST/option');
-  final _storageService = StorageService.getInstance();
+  //final _storageService = StorageService.getInstance();
+  final _storageService = StorageService();
   Session? _session;
 
   @override
@@ -33,7 +34,9 @@ class DashboardWidgetState extends State<DashboardWidget> {
   }
 
   Future<void> _loadSession() async {
-    final String token = await _storageService.getToken();
+    // final String token = await _storageService.getToken();
+    final String token = _storageService.token;
+
     final Session session = await _userService.me(token);
     setState(() {
       _session = session;
@@ -41,7 +44,9 @@ class DashboardWidgetState extends State<DashboardWidget> {
   }
 
   Future<Iterable<Option>> _getOptions() async {
-    final String token = await _storageService.getToken();
+    // final String token = await _storageService.getToken();
+    final String token = _storageService.token;
+    
     final Session session = await _userService.me(token);
     _session = session;
     return await _optionService.getOptions(session.user_id);
