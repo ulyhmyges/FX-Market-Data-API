@@ -26,7 +26,7 @@ RUN ldd build/RESTApi > deps.txt
 RUN ls -al /usr/lib > usrlib.txt
 
 RUN strip build/RESTApi
-RUN strip /app/libraries/local/lib/libQuantLib.so.1.42.0
+RUN strip /app/libraries/local/lib/ubuntu/libQuantLib.so.1.42.0
 
 # ---------- runtime stage ----------
 FROM ubuntu:24.04
@@ -46,7 +46,7 @@ WORKDIR /app
 COPY --from=builder /app/deps.txt /app/deps.txt
 COPY --from=builder /app/usrlib.txt /app/usrlib.txt
 
-COPY --from=builder /app/libraries/local/lib/libQuantLib.so* /usr/local/lib/
+COPY --from=builder /app/libraries/local/lib/ubuntu/libQuantLib.so* /usr/local/lib/
 COPY --from=builder /app/build/RESTApi /app/server
 
 ENV LD_LIBRARY_PATH=/usr/local/lib:$LD_LIBRARY_PATH

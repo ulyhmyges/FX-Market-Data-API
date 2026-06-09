@@ -42,7 +42,7 @@ add_subdirectory(${CMAKE_SOURCE_DIR}/libraries/cpp-dotenv)
 add_subdirectory(${CMAKE_SOURCE_DIR}/libraries/bcrypt)
 
 # Add the directory where QuantLib is located
-link_directories(${CMAKE_SOURCE_DIR}/libraries/local/lib)
+link_directories(${CMAKE_SOURCE_DIR}/libraries/local/lib/ubuntu)
 
 add_executable(RESTApi 
     main.cpp
