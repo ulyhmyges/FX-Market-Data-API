@@ -17,7 +17,7 @@ brew install openssl
 cd libraries
 git clone https://github.com/Thalhammer/jwt-cpp.git
 cd jwt-cpp
-cmake -S . -B build -DJWT_BUILD_EXAMPLES=OFF -DJWT_BUILD_TESTS=OFF -DCMAKE_INSTALL_PREFIX=./install
+cmake -S . -B build -DJWT_BUILD_EXAMPLES=OFF -DJWT_BUILD_TESTS=OFF -DCMAKE_INSTALL_PREFIX=./install -DCMAKE_BUILD_TYPE=Release
 cmake --build build
 cmake --install build
 ```
@@ -46,9 +46,10 @@ target_link_libraries(my_app
 
 ```shell
 git clone https://github.com/adeharo9/cpp-dotenv.git
-cd dotenv-cpp
-cmake -S . -B build
-sudo cmake --install build
+cd cpp-dotenv
+cmake -S . -B build -DCMAKE_INSTALL_PREFIX=./install 
+cmake --build build
+cmake --install build
 ```
 
 - Use dotenv-cpp in the project

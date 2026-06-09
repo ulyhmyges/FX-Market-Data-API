@@ -42,12 +42,12 @@ class SubscribeFormWidgetState extends State<SubscribeFormWidget> {
         // store token
         await _storageService.setToken(token);
 
+        if (!mounted) return;
+
         //Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
         ScaffoldMessenger.of(
           context,
         ).showSnackBar(SnackBar(content: Text('Subscribe successful!')));
-
-       // Navigator.pushNamedAndRemoveUntil(context, '/', (route) => false);
 
         // navigate to Dashboard
         Navigator.push(

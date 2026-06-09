@@ -46,6 +46,8 @@ class LoginFormWidgetState extends State<LoginFormWidget> {
         // store token
         await _storageService.setToken(token);
 
+        if (!mounted) return;
+
         // navigate to Dashboard
         Navigator.push(
           context,

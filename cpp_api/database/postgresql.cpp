@@ -13,6 +13,7 @@ namespace database
 {
     std::string getDB_URL(){
         const char* host = std::getenv("DB_HOST");
+        host="db";
         if (!host) {
             throw std::runtime_error("DB_HOST environment variable is not set");
         }

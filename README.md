@@ -47,7 +47,7 @@ brew install openssl
 - [cpp-dotenv](./cpp_api/libraries/cpp-dotenv/)
 - [jwt-cpp](./cpp_api/libraries/jwt-cpp/)
 - [nlohmann](./cpp_api/libraries/nlohmann/)
-- [Quantlib](./cpp_api/libraries/local/) 
+- [Quantlib](./cpp_api/libraries/local/)
 
 The [README.md](./cpp_api/README.md) of the project
 
