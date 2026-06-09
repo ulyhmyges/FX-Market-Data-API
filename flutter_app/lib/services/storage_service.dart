@@ -1,4 +1,5 @@
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class StorageService {
   static late final StorageService _instance = StorageService._privateConstructor();
@@ -17,6 +18,8 @@ class StorageService {
 
   Future<void> setToken(String token) async {
     await _storage.write(key: 'jwt', value: token);
+    final prefs = await SharedPreferences.getInstance();
+    await prefs.setString('jwt', token);
   }
 
   Future<void> removeToken() async {
