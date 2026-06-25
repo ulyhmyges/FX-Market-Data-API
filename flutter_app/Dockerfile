@@ -8,7 +8,7 @@ RUN flutter pub get
 RUN flutter build web --release --dart-define-from-file=env.json
 
 # Serve stage
-FROM nginx:1.31.1-alpine-slim
+FROM nginx:1.31.1-alpine-slim AS webserver
 
 # RUN adduser -S -h /home/ngx ngx
 # USER ngx
