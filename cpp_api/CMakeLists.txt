@@ -19,7 +19,7 @@ find_package(Boost REQUIRED COMPONENTS system filesystem)
 # Required to find OpenSSL and jwt-cpp properly
 find_package(OpenSSL REQUIRED)
 
-set(CMAKE_PREFIX_PATH "${CMAKE_SOURCE_DIR}/libraries/jwt-cpp/install")
+set(CMAKE_PREFIX_PATH "${CMAKE_SOURCE_DIR}/ext/jwt-cpp/install")
 
 find_package(jwt-cpp CONFIG REQUIRED)
 
