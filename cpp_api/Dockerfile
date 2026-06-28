@@ -22,9 +22,6 @@ RUN rm -rf build && \
     cmake -S . -B build -DCMAKE_BUILD_TYPE=Release && \
     cmake --build build -j2
 
-RUN ldd build/RESTApi > deps.txt
-RUN ls -al /usr/lib > usrlib.txt
-
 RUN strip build/RESTApi
 RUN strip /app/libraries/local/lib/ubuntu/libQuantLib.so.1.42.0
 
@@ -42,9 +39,6 @@ RUN apt-get update && apt-get install -y \
  && rm -rf /var/lib/apt/lists/*
 
 WORKDIR /app
-
-COPY --from=builder /app/deps.txt /app/deps.txt
-COPY --from=builder /app/usrlib.txt /app/usrlib.txt
 
 COPY --from=builder /app/libraries/local/lib/ubuntu/libQuantLib.so* /usr/local/lib/
 COPY --from=builder /app/build/RESTApi /app/server

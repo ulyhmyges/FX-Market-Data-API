@@ -35,14 +35,14 @@ link_directories(${LIBPQXX_LIBRARY_DIRS})
 include_directories(${LIBPQXX_INCLUDE_DIRS}) # /opt/homebrew/Cellar/libpqxx/7.10.1/include
 include_directories(${Boost_INCLUDE_DIRS})
 include_directories(${CMAKE_SOURCE_DIR})
-include_directories(${CMAKE_SOURCE_DIR}/libraries/local/include)
-include_directories(${CMAKE_SOURCE_DIR}/libraries)
-#include_directories(${CMAKE_SOURCE_DIR}/libraries/jwt-cpp/install/include)
-add_subdirectory(${CMAKE_SOURCE_DIR}/libraries/cpp-dotenv)
-add_subdirectory(${CMAKE_SOURCE_DIR}/libraries/bcrypt)
+include_directories(${CMAKE_SOURCE_DIR}/ext/quantlib/include)
+include_directories(${CMAKE_SOURCE_DIR}/ext)
+#include_directories(${CMAKE_SOURCE_DIR}/ext/jwt-cpp/install/include)
+add_subdirectory(${CMAKE_SOURCE_DIR}/ext/cpp-dotenv)
+add_subdirectory(${CMAKE_SOURCE_DIR}/ext/bcrypt)
 
 # Add the directory where QuantLib is located
-link_directories(${CMAKE_SOURCE_DIR}/libraries/local/lib/ubuntu)
+link_directories(${CMAKE_SOURCE_DIR}/ext/quantlib/lib/ubuntu/amd64)
 
 add_executable(RESTApi 
     main.cpp

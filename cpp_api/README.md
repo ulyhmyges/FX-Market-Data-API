@@ -3,7 +3,7 @@
 Create a Restful API server using C++ library (Boost.Beast)
 Run the API
 
-## Installation
+## For local installation
 
 - Install OpenSSL
 

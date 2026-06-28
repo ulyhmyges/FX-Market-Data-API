@@ -47,3 +47,5 @@ app.*.map.json
 
 # VSCode
 **/.vscode
+
+*.old
