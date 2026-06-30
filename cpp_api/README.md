@@ -56,14 +56,14 @@ cmake --install build
 In `CMakeLists.txt`file:
 
 ```shell
-add_subdirectory(${CMAKE_SOURCE_DIR}/libraries/cpp-dotenv)
+add_subdirectory(${CMAKE_SOURCE_DIR}/ext/cpp-dotenv)
 target_link_libraries(RESTApi PTIVATE cpp_dotenv)
 ```
 
 - Install library bcrypt
 
 ```shell
-git clone https://github.com/rg3/bcrypt.git libraries/bcrypt
+git clone https://github.com/rg3/bcrypt.git ext/bcrypt
 
 ```
 
