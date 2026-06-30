@@ -19,7 +19,7 @@ find_package(Boost REQUIRED COMPONENTS system filesystem)
 # Required to find OpenSSL and jwt-cpp properly
 find_package(OpenSSL REQUIRED)
 
-set(CMAKE_PREFIX_PATH "${CMAKE_SOURCE_DIR}/ext/jwt-cpp/install")
+set(CMAKE_PREFIX_PATH "${CMAKE_SOURCE_DIR}/ext/jwt-cpp-lib/install")
 
 find_package(jwt-cpp CONFIG REQUIRED)
 
@@ -37,8 +37,8 @@ include_directories(${Boost_INCLUDE_DIRS})
 include_directories(${CMAKE_SOURCE_DIR})
 include_directories(${CMAKE_SOURCE_DIR}/ext/quantlib/include)
 include_directories(${CMAKE_SOURCE_DIR}/ext)
-#include_directories(${CMAKE_SOURCE_DIR}/ext/jwt-cpp/install/include)
-add_subdirectory(${CMAKE_SOURCE_DIR}/ext/cpp-dotenv)
+#include_directories(${CMAKE_SOURCE_DIR}/ext/jwt-cpp-lib/install/include)
+add_subdirectory(${CMAKE_SOURCE_DIR}/ext/cpp-dotenv-lib)
 add_subdirectory(${CMAKE_SOURCE_DIR}/ext/bcrypt)
 
 # Add the directory where QuantLib is located
@@ -63,7 +63,7 @@ target_include_directories(RESTApi PRIVATE ${LIBPQXX_INCLUDE_DIRS})
 message(STATUS "Boost include dirs: ${Boost_INCLUDE_DIRS}") # -- Boost include dirs: /opt/homebrew/include
 message(STATUS "Boost libraries: ${Boost_LIBRARIES}") # -- Boost libraries: Boost::system;Boost::filesystem
 message(STATUS "C++ compiler: ${CMAKE_CXX_COMPILER}") # Apple clang version 17.0.0
-message(STATUS "cmake prefix path: ${CMAKE_PREFIX_PATH}") # ./libraries/jwt-cpp/install
+message(STATUS "cmake prefix path: ${CMAKE_PREFIX_PATH}") # ./ext/jwt-cpp-lib/install
 message(STATUS "LIBPQXX_INCLUDE_DIRS: ${LIBPQXX_INCLUDE_DIRS}") # /opt/homebrew/Cellar/libpqxx/7.10.1/include
 message(STATUS "LIBPQXX_LIBRARIES: ${LIBPQXX_LIBRARIES}") # pqxx
 message(STATUS "LIBPQXX_LIBRARY_DIRS: ${LIBPQXX_LIBRARY_DIRS}")  # /opt/homebrew/Cellar/libpqxx/7.10.1/lib
