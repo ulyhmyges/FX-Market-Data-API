@@ -45,16 +45,42 @@ spec:
           value: "restapi"
       volumeMounts:
         - name: script-file
-          mountPath: /docker-entrypoint-initdb.d/script.sql
+          mountPath: /docker-entrypoint-initdb.d
         - name: postgresql-dir
           mountPath: /var/lib/postgresql
   volumes:
     - name: script-file
-      hostPath:
-        path: ./cpp_api/database/script.sql
-        type: File
+      configMap:
+        name: postgres-init
     - name: postgresql-dir
       hostPath:
         path:  ./cpp_api/database/data
         type: DirectoryOrCreate
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: postgres-init
+data:
+  script.sql: |
+    CREATE TABLE users (
+    id SERIAL PRIMARY KEY,
+    pseudo VARCHAR(50) UNIQUE NOT NULL,
+    password VARCHAR(100) NOT NULL
+    );
+
+    -- Then create the 'options' table with a foreign key referencing users(id)
+    CREATE TABLE options (
+        id SERIAL PRIMARY KEY,
+        type VARCHAR(20) NOT NULL,  -- e.g., "Call" or "Put"
+        spot DOUBLE PRECISION NOT NULL,
+        strike DOUBLE PRECISION NOT NULL,
+        rate_domestic DOUBLE PRECISION NOT NULL,
+        rate_foreign DOUBLE PRECISION NOT NULL,
+        volatility DOUBLE PRECISION NOT NULL,
+        maturity DATE NOT NULL,
+        day_counter VARCHAR(20) NOT NULL,  -- e.g., "Actual360", "Actual365", etc.
+        price DOUBLE PRECISION NOT NULL,
+        user_id INTEGER NOT NULL REFERENCES users(id) ON DELETE CASCADE
+    );
 
