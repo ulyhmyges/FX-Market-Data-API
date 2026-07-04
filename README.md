@@ -26,7 +26,7 @@ cd FX-Market-Data-API
 make all
 ```
 
-That will build the project and the result is at <http://localhost:88>
+That will build the project and the result is at <http://localhost:8088>
 
 ## API project
 
