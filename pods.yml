@@ -25,3 +25,36 @@ spec:
           value: "db"
         - name: JWT_SECRET
           value: "secret_jwt"
+---
+apiVersion: v1
+kind: Pod
+metadata:
+  name: db
+spec:
+  containers:
+    - name: db
+      image: docker.io/library/postgres:18.4-alpine3.23
+      ports:
+        - containerPort: 5432
+      env:
+        - name: POSTGRES_USER
+          value: "admin"
+        - name: POSTGRES_PASSWORD
+          value: "admin"
+        - name: POSTGRES_DB
+          value: "restapi"
+      volumeMounts:
+        - name: script-file
+          mountPath: /docker-entrypoint-initdb.d/script.sql
+        - name: postgresql-dir
+          mountPath: /var/lib/postgresql
+  volumes:
+    - name: script-file
+      hostPath:
+        path: ./cpp_api/database/script.sql
+        type: File
+    - name: postgresql-dir
+      hostPath:
+        path:  ./cpp_api/database/data
+        type: DirectoryOrCreate
+

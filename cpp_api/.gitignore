@@ -4,3 +4,4 @@
 .env
 ext/jwt-cpp
 ext/cpp-dotenv
+database/data
